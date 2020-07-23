@@ -56,6 +56,9 @@ class EventListener implements Listener
             return;
         }
         if ($event->getFinalDamage() < $player->getHealth()) return;
+        if($player->getAllowFlight() and !$player->isSurvival()){
+            return;
+        }
         $worldname = $player->getLevel()->getName();
         $setting = Loader::getInstance()->getConfig()->getNested("worlds.{$worldname}", [false, $worldname]);
         $enabled = $setting["enabled"] ?? false;
